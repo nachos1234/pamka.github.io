@@ -1,0 +1,71 @@
+<html>
+<title>Pamka Notation</title>
+<head>
+<script>
+function showText() {
+  var input = document.getElementById("input").value;
+  var output = document.getElementById("output");
+  var binaryOutput = document.getElementById("binaryoutput");
+  var symbol = "";
+  var number = parseFloat(input);
+  var power = 0;
+  var lambda = 0;
+  var mu = 0;
+  var binary = "";
+  for (var i = 0; i < input.length; i++) {
+    if (input[i] > 4) {
+      power++;
+      binary += "1";
+    } else {
+      binary += "0";
+    }
+  }
+  lambda = Math.ceil(parseInt(binary, 2) / 2);
+  mu = Math.floor(parseInt(binary, 2) / 2);
+  if (number < 1e9) {
+    symbol = "ξ";
+  } else if (number >= 1e9 && number < 1e12) {
+    symbol = "β";
+  } else if (number >= 1e12 && number < 1e100) {
+    symbol = "Σ";
+  } else if (number >= 1e100) {
+    symbol = "Ω";
+  }
+  if (power > 0) {
+    symbol = symbol + "<sup>" + power + "</sup>";
+  }
+  if (input == "") {
+    output.innerHTML = "";
+    binaryOutput.innerHTML = "";
+  } else {
+    output.innerHTML = "number: pk(Δ<sub>ω</sub>)(" + symbol + "(λ<sub>" + lambda + "</sub>)(flo(" + Math.ceil(number / 2) + ")))";
+    binaryOutput.innerHTML = "binary: " + binary;
+  }
+}
+</script>
+<style>
+h0 {
+  font-size: 16px;
+}
+
+p {
+  font-size: 16px;
+}
+
+output {
+  font-size: 16px;
+}
+
+binaryoutput {
+  font-size: 16px;
+}
+</style>
+</head>
+<body>
+<h0>This is a demonstration of pamka notation, a custom number system created by control80.</h0>
+<p>Enter a number in the input box and see the output in pamka notation and encrypted binary.</p>
+<input id="input" type="text" oninput="showText()">
+<p id="output"></p>
+<p id="binaryoutput"></p>
+</body>
+</html>
